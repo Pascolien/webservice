@@ -1,4 +1,5 @@
 <?php
+
 include './Models/bddconnect.php';
 
 spl_autoload_register('apiAutoload');
@@ -13,9 +14,11 @@ function apiAutoload($classname)
     } elseif (preg_match('/[a-zA-Z]+View$/', $classname)) {
         include __DIR__ . '/views/' . $classname . '.php';
         return true;
-    }else{
-      return false;
-  }
+    } else {
+        include __DIR__ . '/library/' . str_replace('_', DIRECTORY_SEPARATOR, $classname) . '.php';
+        return true;
+    }
+    return false;
 }
 
 $request = new Request();
