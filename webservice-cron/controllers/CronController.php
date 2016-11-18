@@ -1,14 +1,14 @@
 <?php
 
-class UsersController extends MyController
+class CronController extends MyController
 {
     public function getAction($request) {
         if(isset($request->url_elements[2])) {
             $user_id = (int)$request->url_elements[2];
             if(isset($request->url_elements[3])) {
                 switch($request->url_elements[3]) {
-                case 'friends':
-                    $data["message"] = "user " . $user_id . "has many friends";
+                case '1':
+                    $data["message"] = "SELECT * FROM task";
                     break;
                 default:
                     // do nothing, this is not a supported action
@@ -31,13 +31,13 @@ class UsersController extends MyController
 
     public function deleteAction($request) {
         $data = $request->parameters;
-        $data['message'] = "This data was submitted";
+        $data['message'] = "This data was delete";
         return $data;
     }
 
     public function putAction($request) {
         $data = $request->parameters;
-        $data['message'] = "This data was submitted";
+        $data['message'] = "This data was modify";
         return $data;
     }
 }

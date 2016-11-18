@@ -7,7 +7,7 @@ class Request {
 
     public function __construct() {
         $this->verb = $_SERVER['REQUEST_METHOD'];
-        $this->url_elements = explode('/', $_SERVER['PATH_INFO']);
+        $this->url_elements = explode('/', "/".$_GET['path']);
 
         $this->parseIncomingParams();
         // initialise json as default format
