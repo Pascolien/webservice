@@ -1,4 +1,5 @@
 <?php
+include './Models/bddconnect.php';
 
 spl_autoload_register('apiAutoload');
 function apiAutoload($classname)
