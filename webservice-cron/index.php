@@ -13,8 +13,9 @@ function apiAutoload($classname)
     } elseif (preg_match('/[a-zA-Z]+View$/', $classname)) {
         include __DIR__ . '/views/' . $classname . '.php';
         return true;
-    }
-    return false;
+    }else{
+      return false;
+  }
 }
 
 $request = new Request();
