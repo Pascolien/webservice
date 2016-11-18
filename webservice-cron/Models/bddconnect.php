@@ -7,9 +7,7 @@ try{
     // PHP Fatal Error. Second Argument Has To Be An Integer, But PDOException::getCode Returns A
     // String.
 
-    throw new MyDatabaseException( $Exception->getMessage( ) , $Exception->getCode( ) );
+  echo "error";
 }
 
 ?>
-
- 

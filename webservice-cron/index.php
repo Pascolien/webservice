@@ -13,9 +13,6 @@ function apiAutoload($classname)
     } elseif (preg_match('/[a-zA-Z]+View$/', $classname)) {
         include __DIR__ . '/views/' . $classname . '.php';
         return true;
-    } else {
-        include __DIR__ . '/library/' . str_replace('_', DIRECTORY_SEPARATOR, $classname) . '.php';
-        return true;
     }
     return false;
 }
@@ -35,4 +32,3 @@ if (class_exists($controller_name)) {
         $view->render($result);
     }
 }
-
