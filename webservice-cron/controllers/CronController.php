@@ -28,4 +28,16 @@ class UsersController extends MyController
         $data['message'] = "This data was submitted";
         return $data;
     }
+
+    public function deleteAction($request) {
+        $data = $request->parameters;
+        $data['message'] = "This data was submitted";
+        return $data;
+    }
+
+    public function putAction($request) {
+        $data = $request->parameters;
+        $data['message'] = "This data was submitted";
+        return $data;
+    }
 }
