@@ -3,35 +3,37 @@
 class CronController extends MyController
 {
     public function getAction($request) {
-        if(isset($request->url_elements[1])) {
-            $task_id = (int)$request->url_elements[1];
-            if(isset($request->url_elements[2])) {
-                switch($request->url_elements[2]) {
-                case '1':
-                    $data["message"] = [];
-                    foreach(BDD::$bdd->query("SELECT * FROM task") as $task){
-                      $taskObj = new StdClass();
-                      $taskObj->name = $task["name"];
-                      $taskObj->id = $task["id"];
-                      $data["message"][]=$taskObj;
-                    }
-                    break;
-                default:
-                    // do nothing, this is not a supported action
-                    break;
-                }
-            } else {
-                $data["message"] = "here is the info for user " . $task_id;
+      $pdo= new bdd();
+            $requete = "";
+            if(isset($request->url_elements[2]) && ($request->url_elements[2]!="")) {
+              $requete=' WHERE id='.$request->url_elements[2];
             }
-        } else {
-              $data["message"] = "you want a list of users";
-        }
-        return $data;
+              $compar = $pdo->select("SELECT * FROM task $requete");
+              if(!empty($compar)){
+                header("HTTP/1.0 200 Ok");
+                return $compar;
+              } else {
+                header("HTTP/1.0 404 Not Found");
+                return [];
+            }
+
+        $data["message"] = "ERROR" .$task_id;
     }
 
     public function postAction($request) {
         $data = $request->parameters;
-        $data['message'] = "This data was submitted";
+        $pdo=new bdd();
+        $json = $_POST;
+
+        $obj = var_dump(json_decode($json));
+        $nameCreate = $obj->{'name'};
+        $dayCreate = $obj->{'day'};
+        $monthCreate = $obj->{'month'};
+        $yearCreate = $obj->{'year'};
+        $hourCreate = $obj->{'hour'};
+        $minCreate = $obj->{'min'};
+
+        $pdo->create("INSERT INTO task (name, day, month, year, hour, min) VALUES (.$nameCreate. , .$dayCreate. , .$monthCreate. , .$yearCreate. , .$hourCreate. , .$minCreate.)");
         return $data;
     }
 

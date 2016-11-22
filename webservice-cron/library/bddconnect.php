@@ -1,17 +1,37 @@
 <?php
-Class BDD{
-  public static $bdd;
-  public static function connect(){
-    self::$bdd=new PDO('mysql:host=127.0.0.1;dbname=web_service;charset=utf8', 'user', 'webservice');
-  }
-}
-try{
-  BDD::connect();
-}catch( PDOException $Exception ) {
-    // PHP Fatal Error. Second Argument Has To Be An Integer, But PDOException::getCode Returns A
-    // String.
-die($Exception);
-  echo "error in Db connection";
-}
+class bdd {
+    public $pdo;
+    public $db = 'web_service';
 
+    public function __construct() {
+        $this->connect();
+    }
+
+    public function connect(){
+        $this->pdo = new PDO('mysql:host=localhost;dbname='.$this->db, 'root', '');
+    }
+
+        // delete
+        // retourne nombre de row affectés
+        public function exec($sql) {
+            $res = $this->pdo->exec($sql);
+            return $res;
+        }
+
+        // insert / update
+        //retourn id ajouté
+         public function create($sql) {
+            $res = $this->pdo->exec($sql);
+            return $this->pdo->lastInsertId();
+        }
+
+        // execute un select
+        // retourne un tableau de data
+        function select($sql){
+            $req = $this->pdo->query($sql);
+            return $req->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+
+    }
 ?>
