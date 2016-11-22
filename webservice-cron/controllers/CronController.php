@@ -23,9 +23,9 @@ class CronController extends MyController
     public function postAction($request) {
         $data = $request->parameters;
         $pdo=new bdd();
-        $json = $_POST;
 
-        $obj = var_dump(json_decode($json));
+        $obj = json_decode($_POST);
+        return $obj;
         $nameCreate = $obj->{'name'};
         $dayCreate = $obj->{'day'};
         $monthCreate = $obj->{'month'};
@@ -39,7 +39,10 @@ class CronController extends MyController
 
     public function deleteAction($request) {
         $data = $request->parameters;
-        $data['message'] = "This data was delete";
+        $pdo=new bdd();
+
+
+        $pdo->exec("");
         return $data;
     }
 
