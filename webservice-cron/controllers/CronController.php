@@ -3,14 +3,17 @@
 class CronController extends MyController
 {
     public function getAction($request) {
-        if(isset($request->url_elements[2])) {
-            $task_id = (int)$request->url_elements[2];
-            if(isset($request->url_elements[3])) {
-                switch($request->url_elements[3]) {
+        if(isset($request->url_elements[1])) {
+            $task_id = (int)$request->url_elements[1];
+            if(isset($request->url_elements[2])) {
+                switch($request->url_elements[2]) {
                 case '1':
                     $data["message"] = [];
                     foreach(BDD::$bdd->query("SELECT * FROM task") as $task){
-                      $data["message"][]=$task;
+                      $taskObj = new StdClass();
+                      $taskObj->name = $task["name"];
+                      $taskObj->id = $task["id"];
+                      $data["message"][]=$taskObj;
                     }
                     break;
                 default:
@@ -21,7 +24,7 @@ class CronController extends MyController
                 $data["message"] = "here is the info for user " . $task_id;
             }
         } else {
-            $data["message"] = "you want a list of users";
+              $data["message"] = "you want a list of users";
         }
         return $data;
     }
